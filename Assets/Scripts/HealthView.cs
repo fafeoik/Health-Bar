@@ -10,9 +10,15 @@ public class HealthView : MonoBehaviour
     [SerializeField] private Slider _healthBar;
     [SerializeField] private Slider _smoothHealthBar;
     [SerializeField] private float _smoothBarSpeed;
+    [SerializeField] private Health _health;
 
     private char _separatorMark = '/';
     private Coroutine _smoothHealthChangeCoroutine;
+
+    private void OnEnable()
+    {
+        _health.HealthChanged += OnShowHealth;
+    }
 
     private void OnDisable()
     {
@@ -22,7 +28,7 @@ public class HealthView : MonoBehaviour
         }
     }
 
-    public void ShowHealth(int currentHealth, int maxHealth)
+    public void OnShowHealth(int currentHealth, int maxHealth)
     {
         ShowTextHealth(currentHealth, maxHealth);
         ShowHealthBar(currentHealth);
